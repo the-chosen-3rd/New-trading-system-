@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Trading Command Center</title>
+    <style>
+        body {
+            background: #0f1220;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        .bullish {
+    color: #00ff99;
+    font-weight: bold;
+}
+
+.bearish {
+    color: #ff4d4d;
+    font-weight: bold;
+}
+
+.neutral {
+    color: white;
+    font-weight: bold;
+}
+        .card {
+            display: inline-block;
+            background: #1a1f35;
+            padding: 20px;
+            margin: 15px;
+            border-radius: 14px;
+            width: 270px;
+            vertical-align: top;
+        }
+
+        .LONG { color: #00ff99; }
+        .SHORT { color: #ff4d4d; }
+        .WAIT { color: #ffaa00; }
+        .APPROACHING { color: #00d4ff; }
+        .BREAKOUT { color: #b967ff; }
+
+        .zone {
+            font-size: 0.9em;
+            margin-top: 7px;
+        }
+    </style> 
+
+
+    <script>
+        setTimeout(() => window.location.reload(), 30000);
+    </script>
+</head>
+<body>
+    
+
+<h1>🚀 Trading Command Center</h1>
+<p>refreshes every: 30s</p>
+
+{% for asset in dashboard %}
+<div class="card" >   
+    
+    <h2>{{ asset.symbol }}</h2>
+
+    <h3>
+        {% if asset.price is not none %}
+            ${{ asset.price }}
+        {% else %}
+            No price data
+        {% endif %}
+    </h3>
+      
+    <h4 class="{{ asset.signal.split()[0] }}">
+        {{ asset.signal }}
+    </h4>
+    
+    <h4 class="{{ asset.signal.split()[0] }}">
+    {{ asset.signal }}
+</h4>
+
+<div class="zone">
+    <b>Trend Signal:</b>
+    <span class="
+        {% if 'BULLISH' in asset.trend_signal.signal %}
+            bullish
+        {% elif 'BEARISH' in asset.trend_signal.signal %}
+            bearish
+        {% else %}
+            neutral
+        {% endif %}
+    ">
+        {{ asset.trend_signal.signal }}
+    </span>
+</div>
+
+<div class="zone"><b>Action:</b> {{ asset.trend_signal.action }}</div>
+<div class="zone"><b>EMA:</b> {{ asset.trend_signal.ema }}</div>
+<div class="zone"><b>Structure:</b> {{ asset.trend_signal.structure }}</div>
+<div class="zone"><b>Trend Score:</b> {{ asset.trend_signal.score }}</div>
+
+<div class="zone">
+    <b>Trend Signal:</b>
+    <span class="
+        {% if 'BULLISH' in asset.trend_signal.signal %}
+            bullish
+        {% elif 'BEARISH' in asset.trend_signal.signal %}
+            bearish
+        {% else %}
+            neutral
+        {% endif %}
+    ">
+        {{ asset.trend_signal.signal }}
+    </span>
+</div>
+
+<div class="zone">
+    <b>Action:</b> {{ asset.trend_signal.action }}
+</div>
+
+<div class="zone">
+    <b>EMA:</b> {{ asset.trend_signal.ema }}
+</div>
+
+<div class="zone">
+    <b>Structure:</b> {{ asset.trend_signal.structure }}
+</div>
+
+<div class="zone">
+    <b>Trend Score:</b> {{ asset.trend_signal.score }}
+</div>
+
+    <div class="zone"><b>Long Entry:</b> {{ asset.levels.long_entry }}</div>
+    <div class="zone"><b>Short Entry:</b> {{ asset.levels.short_entry }}</div>
+    <div class="zone"><b>TP Long:</b> {{ asset.levels.tp_long }}</div>
+    <div class="zone"><b>TP Short:</b> {{ asset.levels.tp_short }}</div>
+    <div class="zone"><b>SL Long:</b> {{ asset.levels.sl_long }}</div>
+    <div class="zone"><b>SL Short:</b> {{ asset.levels.sl_short }}</div>
+<div class="zone"><b>Location:</b> {{ asset.confluence.location }}</div>
+<div class="zone"><b>Funding Bias:</b> {{ asset.confluence.funding }}</div>
+<div class="zone"><b>Confluence Score:</b> {{ asset.confluence.score }}/10</div>
+
+<div class="zone">
+    <b>Funding:</b>
+    {% if asset.funding is not none %}
+        {{ "%.4f"|format(asset.funding * 100) }}%
+    {% else %}
+        N/A
+    {% endif %}
+</div>
+
+<div class="zone">
+    <b>Open Interest:</b>
+    {% if asset.open_interest is not none %}
+        {{ "{:,.2f}".format(asset.open_interest) }}
+    {% else %}
+        N/A
+    {% endif %}
+</div>
+
+<div class="zone">
+    <b>24h Volume:</b>
+    {% if asset.volume_24h is not none %}
+        ${{ "{:,.0f}".format(asset.volume_24h) }}
+    {% else %}
+        N/A
+    {% endif %}
+</div>
+
+<div class="zone">
+    <b>Trend:</b>
+
+    <span class="
+        {% if asset.confluence.trend == 'BULLISH' %}
+            bullish
+        {% elif asset.confluence.trend == 'PULLBACK' %}
+            bearish
+        {% else %}
+            neutral
+        {% endif %}
+    ">
+        {{ asset.confluence.trend }}
+    </span>
+</div>
+</div>
+{% endfor %}
+
+</body>
+</html>
+
