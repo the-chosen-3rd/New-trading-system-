@@ -90,3 +90,5 @@ def fetch_coingecko_ohlc(coin_id, days=90):
     df["timestamp"] = pd.to_datetime(df["timestamp"], unit="ms")
 
     return df
+
+
