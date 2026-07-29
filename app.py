@@ -44,7 +44,7 @@ ASSETS = {
     },
 
     "pax-gold": {
-        "symbol": "PAXG",
+        "symbol": "pax-gold",
         "coingecko_id": "pax-gold",
         "hyperliquid_symbol": "PAXG",
         "funding": 0.0053,
